@@ -223,6 +223,7 @@ def ssl_log(process, pcap=None, verbose=False, isUsb=False, ssllib="", isSpawn=T
         print('You have stoped logging.')
         session.detach()
         if pcap:
+            pcap_file.flush()
             pcap_file.close()
         exit()
     signal.signal(signal.SIGINT, stoplog)

@@ -10,9 +10,10 @@ for from https://github.com/google/ssl_logger
 ## Usage
   ```shell
     python3 ./ssl_logger.py  -U -f com.bfc.mm
+    python3 ./ssl_logger.py -v  -p test.pcap  6666
   ````
 
 
 ## Todo
 1. 解决IP的问题;
-2. 适配Windows;
+2. ~~适配Windows~~;
