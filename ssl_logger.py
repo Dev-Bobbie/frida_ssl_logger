@@ -28,7 +28,7 @@ __author__ = "geffner@google.com (Jason Geffner)"
 __version__ = "1.0"
 
 # Windows版本需要安装库：
-# pip installl 'win_inet_pton'
+# pip install 'win_inet_pton'
 # pip install hexdump
 import argparse
 import os
@@ -206,7 +206,7 @@ def ssl_log(process, pcap=None, verbose=False, isUsb=False, ssllib="", isSpawn=T
                 ("=I", 228)):  # Data link type (LINKTYPE_IPV4)
             pcap_file.write(struct.pack(writes[0], writes[1]))
 
-    with open("./script.js") as f:
+    with open("./script.js", encoding="utf-8") as f:
         _FRIDA_SCRIPT = f.read()
         # _FRIDA_SCRIPT = session.create_script(content)
         # print(_FRIDA_SCRIPT)
@@ -218,15 +218,16 @@ def ssl_log(process, pcap=None, verbose=False, isUsb=False, ssllib="", isSpawn=T
         script.exports.setssllib(ssllib)
 
     print("Press Ctrl+C to stop logging.")
-    # try:
-    #   signal.pause()
-    # except KeyboardInterrupt:
-    #   pass
-    sys.stdin.read()
-    session.detach()
-    if pcap:
-        pcap_file.close()
 
+    def stoplog(signum, frame):
+        print('You have stoped logging.')
+        session.detach()
+        if pcap:
+            pcap_file.close()
+        exit()
+    signal.signal(signal.SIGINT, stoplog)
+    signal.signal(signal.SIGTERM, stoplog)
+    sys.stdin.read()
 
 if __name__ == "__main__":
     class ArgParser(argparse.ArgumentParser):
