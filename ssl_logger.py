@@ -25,7 +25,7 @@ Dependencies:
 """
 
 __author__ = "geffner@google.com (Jason Geffner)"
-__version__ = "1.0"
+__version__ = "2.0"
 
 # Windows版本需要安装库：
 # pip install 'win_inet_pton'
@@ -235,7 +235,7 @@ if __name__ == "__main__":
         def error(self, message):
             print("ssl_logger v" + __version__)
             print("by " + __author__)
-            print()
+            print("Modified by BigFaceCat")
             print("Error: " + message)
             print()
             print(self.format_help().replace("usage:", "Usage:"))
@@ -255,9 +255,9 @@ Examples:
 """)
 
     args = parser.add_argument_group("Arguments")
-    args.add_argument("-pcap", metavar="<path>", required=False,
+    args.add_argument("-pcap", '-p', metavar="<path>", required=False,
                       help="Name of PCAP file to write")
-    args.add_argument("-verbose", required=False, action="store_const", default=True,
+    args.add_argument("-verbose","-v",  required=False, action="store_const", default=True,
                       const=True, help="Show verbose output")
     args.add_argument("process", metavar="<process name | process id>",
                       help="Process whose SSL calls to log")
